@@ -20,6 +20,7 @@ INCLUDE Irvine32.inc
 	t13 BYTE "-----> ",0
 	main_title DWORD OFFSET t1, OFFSET t2, OFFSET t3 ,OFFSET t4, OFFSET t5, OFFSET t6, OFFSET t7, OFFSET t8 ,OFFSET t9, OFFSET t10, OFFSET t11, OFFSET t12
 	max_width BYTE ?
+	max_height BYTE ?
 	option_flag DWORD 0
 	YELLOW = 14
 	WHITE = 15
@@ -33,6 +34,10 @@ PRINTING_MENU PROC
 	call SetTextColor
 	call GetMaxXY
 	mov max_width, dl
+	mov max_height, ah
+	mov dh, max_height
+	sub dh, 19
+	shr dh, 1
 	mov al, max_width
 	inc al
 	sub al, LENGTHOF t1
@@ -40,7 +45,6 @@ PRINTING_MENU PROC
 	mov ecx, LENGTHOF main_title
 	sub ecx, 3
 	mov ebx, 0
-	mov dh, 0
 	push dx
 	call crlf
 	
@@ -74,7 +78,7 @@ PRINTING_MENU PROC
 		sub al, LENGTHOF t10
 		shr al, 1
 		mov dl, al 
-		inc dh
+		add dh, 3
 		push dx
 		call Gotoxy
 
