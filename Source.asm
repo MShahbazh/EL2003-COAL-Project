@@ -1,4 +1,6 @@
-; PRESS 'D' FOR GOING DOWN AND 'A' FOR GOING UP
+; PRESS 'S' FOR GOING DOWN AND 'W' FOR GOING UP, 'D' SE FILHAAL CLRSCR HOTA HAI 
+; GetMaxXY screen ki max width aur height lene ke liye hai taake terminal ko full screen karne per bhi center per aaye | full screen karke D,S ya W click karne per clrscr hojaaye ga
+; GotoXY, cursor ki X aur Y position handle karta hai. 
 
 INCLUDE Irvine32.inc
 .data
