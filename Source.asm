@@ -1,3 +1,5 @@
+; PRESS 'D' FOR GOING DOWN AND 'A' FOR GOING UP
+
 INCLUDE Irvine32.inc
 .data
 	t1 BYTE " ============================================================================",0
@@ -19,9 +21,6 @@ INCLUDE Irvine32.inc
 	option_flag DWORD 0
 	YELLOW = 14
 	WHITE = 15
-
-
-	d BYTE "DEBUGGED",0
 .code
 
 ; YEH LOOP POORA INITIAL MENU PRINT KARE GA
