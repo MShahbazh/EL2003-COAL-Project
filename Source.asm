@@ -30,8 +30,8 @@ INCLUDE Irvine32.inc
 	q7 BYTE "||    ÛÛ    ÛÛÛÛÛÛ  ÛÛÛÛÛÛ  |    ÛÛ    ÛÛ  ÛÛ  ÛÛÛÛÛÛ  |    ÛÛ    ÛÛÛÛÛÛ  ÛÛÛÛÛÛ  ||",0
 	q8 BYTE "||                                                                                ||",0
 	q9 BYTE " ==================================================================================",0
-	q10 BYTE "Play",0
-	q11 BYTE "Back ",0
+	q10 BYTE "PLAY",0
+	q11 BYTE "BACK ",0
 	ttt_title_one DWORD OFFSET q1, OFFSET q2, OFFSET q3, OFFSET q4, OFFSET q5, OFFSET q6, OFFSET q7, OFFSET q8, OFFSET q9, OFFSET q10, OFFSET q11
 	ttt_game_options BYTE LENGTHOF q10, LENGTHOF q11
 
@@ -74,12 +74,15 @@ INCLUDE Irvine32.inc
 	r7 BYTE "||                      ÛÛÛÛÛÛÛÛ  ÛÛÛÛÛÛÛÛ  ÛÛÛÛÛÛ    ÛÛÛÛÛÛÛÛ  ÛÛ    ÛÛ  ÛÛÛÛÛÛÛÛ                      ||",0
 	r8 BYTE "||                                                                                                      ||",0
 	r9 BYTE " ======================================================================================================= ",0
-	r10 BYTE "Easy",0
-	r11 BYTE "Medium",0
-	r12 BYTE "Hard",0
-	r13 BYTE "Back",0
+	r10 BYTE "EASY",0
+	r11 BYTE "MEDIUM",0
+	r12 BYTE "HARD",0
+	r13 BYTE "BACK",0
 	sud_title DWORD OFFSET r1, OFFSET r2, OFFSET r3, OFFSET r4, OFFSET r5, OFFSET r6, OFFSET r7, OFFSET r8, OFFSET r9, OFFSET r10, OFFSET r11, OFFSET r12, OFFSET r13
 	sud_game_options BYTE LENGTHOF r10, LENGTHOF r11, LENGTHOF r12, LENGTHOF r13
+
+	sud_border BYTE " ----------- ----------- ----------- ",0
+	sud_space BYTE "|           |           |           |",0
 
 	max_width BYTE ?
 	max_height BYTE ?
@@ -88,6 +91,21 @@ INCLUDE Irvine32.inc
 	WHITE = 15
 	RED = 4
 	ending_delay REAL8 100.0
+	
+original_board BYTE '5','3','_','_','7','_','_','_','_'
+            BYTE '6','_','_','1','9','5','_','_','_'
+            BYTE '_','9','8','_','_','_','_','6','_'
+			BYTE '8','_','_','_','6','_','_','_','3'
+            BYTE '4','_','_','8','_','3','_','_','1'
+            BYTE '7','_','_','_','2','_','_','_','6'
+            BYTE '_','6','_','_','_','_','2','8','_'
+            BYTE '_','_','_','4','1','9','_','_','5'
+            BYTE '_','_','_','_','8','_','_','7','9'
+
+
+	user_board BYTE 81 DUP('_')
+	solution_board BYTE 81 DUP ('_')
+	
 
 	
 	d BYTE "DEBUGGED",0
@@ -473,33 +491,162 @@ ENDING_SCREEN PROC
 	ret
 ENDING_SCREEN ENDP
 
+; ---------------------------------------------- SUDOKU PLAY PROC ---------------------------------------------------
+
+
+SUDOKU_PLAY PROC 
+	mov ecx, 0
+	L1:
+		cmp ecx, 81
+		je M1
+		mov al, original_board[ecx]
+		mov user_board[ecx],al
+		inc ecx
+	jmp L1
+	M1:
+	mov ecx, 12
+	mov ebx, 1
+	L2:
+		mov eax, WHITE
+		call SetTextColor
+		mov esi, ecx 
+		mov eax, ecx 
+		xor edx, edx
+		mov edi, 4
+		DIV edi 
+		cmp edx, 0
+		jne no_print_border
+			mov al, ' '
+			call WriteChar
+			mov al, ' '
+			call WriteChar
+			mov ecx, 36
+			mov edx, OFFSET sud_border
+			call WriteString
+			call crlf
+			mov al, ' '
+			call WriteChar
+			mov al, ' '
+			call WriteChar
+			mov edx, OFFSET sud_space
+			call WriteString
+			jmp last
+		no_print_border:
+
+			mov ecx, 9
+			L4:
+				mov eax, ecx 
+				mov edi, 3
+				xor edx, edx 
+				DIV edi 
+				cmp edx, 0
+				mov al, ' '
+				call WriteChar
+				mov al, ' '
+				call WriteChar
+				jne line_second
+					mov al, '|'
+					call WriteChar
+					mov al, ' '
+					call WriteChar
+					mov al, ' '
+					call WriteChar
+
+				line_second:
+					cmp original_board[ebx], '_'
+					jne fixed
+						mov eax, WHITE
+						call SetTextColor
+						mov al, user_board[ebx]
+						call WriteChar
+						jmp L4end
+					fixed:
+						mov eax, RED
+						call SetTextColor
+						mov al, original_board[ebx]
+						call WriteChar
+				L4end:
+					mov eax, WHITE
+					call SetTextColor
+					inc ebx
+			loop L4
+			mov al, ' '
+			call WriteChar
+			mov al, ' '
+			call WriteChar
+			mov eax, '|'
+			call WriteChar
+			call crlf
+			mov al, ' '
+			call WriteChar
+			mov al, ' '
+			call WriteChar
+			mov edx, OFFSET sud_space
+			call WriteString
+		last:
+		call crlf
+		mov ecx, esi
+	dec ecx 
+	jnz L2
+	mov al, ' '
+	call WriteChar
+	mov al, ' '
+	call WriteChar
+	mov edx, OFFSET sud_border
+	call WriteString
+			
+	ret
+SUDOKU_PLAY ENDP
+
 ; ---------------------------------------------- MAIN PROC ---------------------------------------------------
 
 main PROC 
 
-
-
 	game_loop:
 
 	call PRINTING_MENU
+
+	; -----> WHEN USER CHOOSE TIC TAC TOE (OPTION 1 OF MAIN MENU)
+
 	cmp option_flag, 0
 	jne check_second
 		call TTT
-		cmp option_flag, 1
 		mov option_flag, 0
 		jmp Last
+
+	; -----> WHEN USER CHOOSE SUDOKU (OPTION 2 OF MAIN MENU)
+
 	check_second:
 	cmp option_flag, 1
 	jne check_third
-		call SUDOKU 
-		cmp option_flag, 3
 		mov option_flag, 0
-		jmp Last
+		call SUDOKU 
+		
+		; -----> WHEN USER CHOOSES EASY MODE OF SUDOKU 
+
+		cmp option_flag, 0
+			jne check_second_sudoku
+			call clrscr
+			call SUDOKU_PLAY
+			jmp end_program
+		check_second_sudoku:
+
+		; ------> WHEN USER CHOSES BACK OF SUDOKU 
+
+    	cmp option_flag, 3
+			mov option_flag, 0
+			jmp Last
+
+	 ; -----> WHEN USER CHOOSE EXIT (OPTION 3 OF MAIN MENU)
+    
 	check_third:
 		call ENDING_SCREEN
 		jmp end_program
 	Last:
 	jmp game_loop
+
+
+	
 
 end_program:
 	exit
