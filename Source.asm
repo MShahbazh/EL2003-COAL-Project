@@ -5,15 +5,15 @@
 
 INCLUDE Irvine32.inc
 .data
-	t1 BYTE " ============================================================================",0
-	t2 BYTE "||                                                                          ||",0		
-    t3 BYTE "||         ÛÛÛÛÛÛÛÛ    ÛÛÛÛÛÛÛÛ    ÛÛÛÛÛÛÛÛ    ÛÛÛÛÛÛÛÛ    ÛÛ    ÛÛ         ||",0
-	t4 BYTE "||            ÛÛ          ÛÛ       ÛÛ          ÛÛ          ÛÛ    ÛÛ         ||",0
-	t5 BYTE "||            ÛÛ          ÛÛ       ÛÛ          ÛÛÛÛÛÛÛÛ    ÛÛ    ÛÛ         ||",0
-	t6 BYTE "||            ÛÛ          ÛÛ       ÛÛ                ÛÛ    ÛÛ    ÛÛ         ||",0
-	t7 BYTE "||            ÛÛ       ÛÛÛÛÛÛÛÛ    ÛÛÛÛÛÛÛÛ    ÛÛÛÛÛÛÛÛ    ÛÛÛÛÛÛÛÛ         ||",0
-	t8 BYTE "||                                                                          ||",0
-	t9 BYTE " ============================================================================",0
+	t1 BYTE "============================================================================",0
+	t2 BYTE "|                                                                          |",0		
+    t3 BYTE "|         ████████╗   ████████╗   ████████╗   ████████╗   ██╗   ██╗        |",0
+	t4 BYTE "|            ██ ╔═╝      ██ ╔═╝   ██ ╔════╝   ██╔═════╝   ██║   ██║        |",0
+	t5 BYTE "|            ██ ║        ██ ║     ██ ║        ████████    ██║   ██║        |",0
+	t6 BYTE "|            ██ ║        ██ ╚═╗   ██ ╚════╗   ╚═════██    ██╚═══██║        |",0
+	t7 BYTE "|            ██ ║     ████████║   ████████║   ████████╗    ██████╔╝        |",0
+	t8 BYTE "|             ╚═╝     ╚═══════╝   ╚═══════╝   ╚═══════╝    ╚═════╝         |",0
+	t9 BYTE "============================================================================",0
 	t10 BYTE "TIC TAC TOE",0
 	t11 BYTE "SUDOKU",0
 	t12 BYTE "EXIT",0
@@ -23,56 +23,56 @@ INCLUDE Irvine32.inc
 
 	q1 BYTE " ==================================================================================",0
 	q2 BYTE "||                                                                                ||",0		
-    q3 BYTE "||  ÛÛÛÛÛÛ  ÛÛÛÛÛÛ  ÛÛÛÛÛÛ  |  ÛÛÛÛÛÛ   ÛÛÛÛ   ÛÛÛÛÛÛ  |  ÛÛÛÛÛÛ  ÛÛÛÛÛÛ  ÛÛÛÛÛÛ  ||",0
-	q4 BYTE "||    ÛÛ      ÛÛ    ÛÛ      |    ÛÛ    ÛÛ  ÛÛ  ÛÛ      |    ÛÛ    ÛÛ  ÛÛ  ÛÛ      ||",0
-	q5 BYTE "||    ÛÛ      ÛÛ    ÛÛ      |    ÛÛ    ÛÛÛÛÛÛ  ÛÛ      |    ÛÛ    ÛÛ  ÛÛ  ÛÛÛÛÛÛ  ||",0
-	q6 BYTE "||    ÛÛ      ÛÛ    ÛÛ      |    ÛÛ    ÛÛ  ÛÛ  ÛÛ      |    ÛÛ    ÛÛ  ÛÛ  ÛÛ      ||",0
-	q7 BYTE "||    ÛÛ    ÛÛÛÛÛÛ  ÛÛÛÛÛÛ  |    ÛÛ    ÛÛ  ÛÛ  ÛÛÛÛÛÛ  |    ÛÛ    ÛÛÛÛÛÛ  ÛÛÛÛÛÛ  ||",0
-	q8 BYTE "||                                                                                ||",0
+    q3 BYTE "||  ██████╗ ██████╗ ██████╗ |  ██████╗  ████╗  ██████╗ |  ██████╗ ██████╗ ██████╗ ||",0
+	q4 BYTE "||    ██ ╔╝   ██ ╔╝ ██ ╔══╝ |    ██ ╔╝ ██╔═██╗ ██ ╔══╝ |    ██ ╔╝ ██  ██║ ██╔═══╝ ||",0
+	q5 BYTE "||    ██ ║    ██ ║  ██ ║    |    ██ ║  ██████║ ██ ║    |    ██ ║  ██  ██║ █████╗  ||",0
+	q6 BYTE "||    ██ ║    ██ ╚╗ ██ ╚══╗ |    ██ ║  ██╔═██║ ██ ╚══╗ |    ██ ║  ██  ██║ ██╔══╝  ||",0
+	q7 BYTE "||    ██ ║  ██████║ ██████║ |    ██ ║  ██║ ██║ ██████║ |    ██ ║  ██████║ ██████╗ ||",0
+	q8 BYTE "||     ╚═╝  ╚═════╝ ╚═════╝       ╚═╝  ╚═╝ ╚═╝ ╚═════╝       ╚═╝  ╚═════╝ ╚═════╝ ||",0
 	q9 BYTE " ==================================================================================",0
 	q10 BYTE "PLAY",0
 	q11 BYTE "BACK ",0
 	ttt_title_one DWORD OFFSET q1, OFFSET q2, OFFSET q3, OFFSET q4, OFFSET q5, OFFSET q6, OFFSET q7, OFFSET q8, OFFSET q9, OFFSET q10, OFFSET q11
 	ttt_game_options BYTE LENGTHOF q10, LENGTHOF q11
 
-	s1 BYTE " ------------------------------------------------------------------------------------------------------ ",0 
-	s2 BYTE "|                                                                                                      |",0
-	s3 BYTE "| ÛÛÛÛÛÛ ÛÛ  ÛÛ ÛÛÛÛÛÛ ÛÛÛÛÛÛ                                                                          |",0
-	s4 BYTE "|   ÛÛ   ÛÛ  ÛÛ ÛÛ       ÛÛ                                                                            |",0
-	s5 BYTE "|   ÛÛ   ÛÛ  ÛÛ ÛÛÛÛÛÛ   ÛÛ                                                                            |",0
-	s6 BYTE "|   ÛÛ   ÛÛ  ÛÛ     ÛÛ   ÛÛ                                                                            |",0
-	s7 BYTE "|   ÛÛ   ÛÛÛÛÛÛ ÛÛÛÛÛÛ ÛÛÛÛÛÛ                                                                          |",0
-	s8 BYTE "|                                                                                                      |",0
-	s9 BYTE "|                              ÛÛÛÛÛÛ  ÛÛ     ÛÛ                                                       |",0
-	s10 BYTE "|                                ÛÛ  ÛÛ  ÛÛ ÛÛ  ÛÛ                                                     |",0
-	s11 BYTE "|                                ÛÛ  ÛÛ  ÛÛ ÛÛ  ÛÛ                                                     |",0
-	s12 BYTE "|                             ÛÛ ÛÛ  ÛÛÛÛÛÛ ÛÛÛÛÛÛ                                                     |",0
-	s13 BYTE "|                             ÛÛÛÛÛ  ÛÛ  ÛÛ ÛÛ  ÛÛ                                                     |",0
-	s14 BYTE "|                                                                                                      |",0
-	s15 BYTE "|                                                   ÛÛÛÛÛÛ   ÛÛ   ÛÛ  ÛÛ ÛÛÛÛÛÛ                        |",0
-	s16 BYTE "|                                                   ÛÛ  ÛÛ ÛÛ  ÛÛ ÛÛ  ÛÛ ÛÛ                            |",0
-	s17 BYTE "|                                                   ÛÛÛÛÛÛ ÛÛ  ÛÛ ÛÛÛÛÛÛ ÛÛÛÛÛÛ                        |",0
-	s18 BYTE "|                                                   ÛÛ  ÛÛ ÛÛÛÛÛÛ ÛÛ  ÛÛ ÛÛ                            |",0
-	s19 BYTE "|                                                   ÛÛ  ÛÛ ÛÛ  ÛÛ ÛÛ  ÛÛ ÛÛÛÛÛÛ                        |",0
-	s20 BYTE "|                                                                                                      |",0
-	s21 BYTE "|                                                                                ÛÛ  ÛÛ ÛÛÛÛÛÛ  ÛÛÛÛÛÛ |",0
-	s22 BYTE "|                                                                                ÛÛ  ÛÛ ÛÛ  ÛÛ      ÛÛ |",0
-	s23 BYTE "|                                                                                ÛÛÛÛÛÛ ÛÛ  ÛÛ  ÛÛÛÛÛÛ |",0
-	s24 BYTE "|                                                                                ÛÛ  ÛÛ ÛÛ  ÛÛ  ÛÛ     |",0
-	s25 BYTE "|                                                                                ÛÛ  ÛÛ ÛÛÛÛÛÛ         |",0
-	s26 BYTE "|                                                                                               ÛÛ     |",0
-	s27 BYTE "|                                                                                                      |",0
-	s28 BYTE " ------------------------------------------------------------------------------------------------------ ",0 
+	 s1 BYTE " -------------------------------------------------------------------------------------------------------- ",0 
+	 s2 BYTE "|                                                                                                        |",0
+	 s3 BYTE "| ██████  ██  ██  ██████  ██████                                                                         |",0
+	 s4 BYTE "|   ██    ██  ██  ██        ██                                                                           |",0
+	 s5 BYTE "|   ██    ██  ██  ██████    ██                                                                           |",0
+	 s6 BYTE "|   ██    ██  ██      ██    ██                                                                           |",0
+	 s7 BYTE "|   ██    ██████  ██████  ██████                                                                         |",0
+	 s8 BYTE "|                                                                                                        |",0
+	 s9 BYTE "|                              ██████    ██       ██                                                     |",0
+	s10 BYTE "|                                ██    ██  ██   ██  ██                                                   |",0
+	s11 BYTE "|                                ██    ██  ██   ██  ██                                                   |",0
+	s12 BYTE "|                             ██ ██    ██████   ██████                                                   |",0
+	s13 BYTE "|                             █████    ██  ██   ██  ██                                                   |",0
+	s14 BYTE "|                                                                                                        |",0
+	s15 BYTE "|                                                 ████████     ██     ██  ██   ██████                    |",0
+	s16 BYTE "|                                                   ██  ██   ██  ██   ██  ██   ██                        |",0
+	s17 BYTE "|                                                   ██████   ██  ██   ██████   █████                     |",0
+	s18 BYTE "|                                                   ██  ██   ██████   ██  ██   ██                        |",0
+	s19 BYTE "|                                                   ██  ██   ██  ██   ██  ██   ██████                    |",0
+	s20 BYTE "|                                                                                                        |",0
+	s21 BYTE "|                                                                                ██  ██   ██████  ██████ |",0
+	s22 BYTE "|                                                                                ██  ██   ██  ██      ██ |",0
+	s23 BYTE "|                                                                                ██████   ██  ██  ██████ |",0
+	s24 BYTE "|                                                                                ██  ██   ██  ██  ██     |",0
+	s25 BYTE "|                                                                                ██  ██   ██████         |",0
+	s26 BYTE "|                                                                                                 ██     |",0
+	s27 BYTE "|                                                                                                        |",0
+	s28 BYTE " -------------------------------------------------------------------------------------------------------- ",0 
 	ending DWORD OFFSET s1, OFFSET s2, OFFSET s3, OFFSET s4, OFFSET s5, OFFSET s6, OFFSET s7, OFFSET s8, OFFSET s9, OFFSET s10, OFFSET s11, OFFSET s12, OFFSET s13, OFFSET s14, OFFSET s15, OFFSET s16, OFFSET s17, OFFSET s18, OFFSET s19, OFFSET s20, OFFSET s21, OFFSET s22, OFFSET s23, OFFSET s24, OFFSET s25, OFFSET s26, OFFSET s27, OFFSET s28
 	
 	r1 BYTE " ======================================================================================================= ",0
 	r2 BYTE "||                                                                                                      ||",0
-	r3 BYTE "||                      ÛÛÛÛÛÛÛÛ  ÛÛ    ÛÛ  ÛÛÛÛÛÛ    ÛÛÛÛÛÛÛÛ  ÛÛ    ÛÛ  ÛÛ    ÛÛ                      ||",0
-	r4 BYTE "||                      ÛÛ        ÛÛ    ÛÛ  ÛÛ    ÛÛ  ÛÛ    ÛÛ  ÛÛ  ÛÛ    ÛÛ    ÛÛ                      ||",0
-	r5 BYTE "||                      ÛÛÛÛÛÛÛÛ  ÛÛ    ÛÛ  ÛÛ    ÛÛ  ÛÛ    ÛÛ  ÛÛÛÛ      ÛÛ    ÛÛ                      ||",0
-	r6 BYTE "||                            ÛÛ  ÛÛ    ÛÛ  ÛÛ    ÛÛ  ÛÛ    ÛÛ  ÛÛ  ÛÛ    ÛÛ    ÛÛ                      ||",0
-	r7 BYTE "||                      ÛÛÛÛÛÛÛÛ  ÛÛÛÛÛÛÛÛ  ÛÛÛÛÛÛ    ÛÛÛÛÛÛÛÛ  ÛÛ    ÛÛ  ÛÛÛÛÛÛÛÛ                      ||",0
-	r8 BYTE "||                                                                                                      ||",0
+	r3 BYTE "||                      ████████╗ ██╗   ██╗ ██████╗    ██████╗  ██╗   ██╗ ██╗   ██╗                     ||",0
+	r4 BYTE "||                      ██╔═════╝ ██║   ██║ ██ ╔══██  ██ ╔══██  ██║ ██╔═╝ ██║   ██║                     ||",0
+	r5 BYTE "||                      ████████  ██║   ██║ ██ ║  ██  ██ ║  ██  █████╔╝   ██║   ██║                     ||",0
+	r6 BYTE "||                      ╚═════██  ██╚═══██║ ██ ╚══██  ██ ╚══██  ██╔═██╗   ██╚═══██║                     ||",0
+	r7 BYTE "||                      ████████╗  ██████╔╝ ██████╝    ██████╝  ██║   ██╗  ██████╔╝                     ||",0
+	r8 BYTE "||                      ╚═══════╝  ╚═════╝  ╚════╝     ╚═══╝    ╚═╝   ╚═╝  ╚═════╝                      ||",0
 	r9 BYTE " ======================================================================================================= ",0
 	r10 BYTE "EASY",0
 	r11 BYTE "MEDIUM",0
@@ -90,6 +90,7 @@ INCLUDE Irvine32.inc
 	YELLOW = 14
 	WHITE = 15
 	RED = 4
+	BLUE =1 
 	ending_delay REAL8 100.0
 	
 original_board BYTE '5','3','_','_','7','_','_','_','_'
@@ -112,7 +113,7 @@ original_board BYTE '5','3','_','_','7','_','_','_','_'
 .code
 
 
-; ---------------------------------------------- PRINTING_MENU PROC ---------------------------------------------------
+; ---------------------------------------------- PRINTING_MENU PROC ( W for selecting up, S for selecting down, A for accept, R for reload (clrscr and then print again)---------------------------------------------------
 
 PRINTING_MENU PROC
 	call clrscr
@@ -204,7 +205,7 @@ PRINTING_MENU PROC
 	last:
 		pop dx
 		call ReadChar
-	cmp al, 'D'
+	cmp al, 'R'
 	jne go_s
 		call clrscr
 	go_s:
@@ -231,7 +232,7 @@ PRINTING_MENU PROC
 	ret
 PRINTING_MENU ENDP
 
-; ---------------------------------------------- TTT (tic tac toe printing menu) PROC ---------------------------------------------------
+; ---------------------------------------------- TTT (tic tac toe printing menu) ( W for selecting up, S for selecting down, A for accept, R for reload (clrscr and then print again) PROC ---------------------------------------------------
 
 
 TTT PROC
@@ -315,7 +316,7 @@ TTT PROC
 		last:
 		pop dx
 		call ReadChar
-	cmp al, 'D'
+	cmp al, 'R'
 	jne go_s
 		call clrscr
 	go_s:
@@ -342,7 +343,7 @@ TTT PROC
 	ret
 TTT ENDP
 
-; ---------------------------------------------- SUDOKU MENU PRINTING PROC ---------------------------------------------------
+; ---------------------------------------------- SUDOKU MENU PRINTING ( W for selecting up, S for selecting down, A for accept, R for reload (clrscr and then print again) PROC ---------------------------------------------------
 
 SUDOKU PROC
 call clrscr
@@ -425,7 +426,7 @@ call clrscr
 		last:
 		pop dx
 		call ReadChar
-	cmp al, 'D'
+	cmp al, 'R'
 	jne go_s
 		call clrscr
 	go_s:
@@ -491,10 +492,13 @@ ENDING_SCREEN PROC
 	ret
 ENDING_SCREEN ENDP
 
-; ---------------------------------------------- SUDOKU PLAY PROC ---------------------------------------------------
+; ---------------------------------------------- SUDOKU PLAY (W for moving up, S for down, D for right, A for left, R for reload (clrscr, then print again, X for back (currently it ends program, will fix later) PROC ---------------------------------------------------
+; Sudoku will display in easy option (for now)
+; Sudoku will display in easy option (for now)
 
 
 SUDOKU_PLAY PROC 
+
 	mov ecx, 0
 	L1:
 		cmp ecx, 81
@@ -504,9 +508,33 @@ SUDOKU_PLAY PROC
 		inc ecx
 	jmp L1
 	M1:
+	mov ecx, 0
+	set_cursor:
+		cmp user_board[ecx],'_'
+		je end_set_cursor
+	inc ecx
+	cmp ecx, 81
+	je end_set_cursor
+	jne set_cursor
+	end_set_cursor:
+	mov option_flag, ecx
+
+	printed:
 	mov ecx, 12
-	mov ebx, 1
+	mov ebx, 0
+	call GetMaxXY
+	mov max_width, dl 
+	sub dl, LENGTHOF sud_border
+	shr dl, 1
+	push dx
+	mov dh,0
+	call GotoXY
+
 	L2:
+		pop dx
+		inc dh
+		call GotoXY
+		push dx
 		mov eax, WHITE
 		call SetTextColor
 		mov esi, ecx 
@@ -524,6 +552,10 @@ SUDOKU_PLAY PROC
 			mov edx, OFFSET sud_border
 			call WriteString
 			call crlf
+			pop dx
+			inc dh
+			call GotoXY
+			push dx
 			mov al, ' '
 			call WriteChar
 			mov al, ' '
@@ -531,7 +563,7 @@ SUDOKU_PLAY PROC
 			mov edx, OFFSET sud_space
 			call WriteString
 			jmp last
-		no_print_border:
+		no_print_border:		
 
 			mov ecx, 9
 			L4:
@@ -555,7 +587,13 @@ SUDOKU_PLAY PROC
 				line_second:
 					cmp original_board[ebx], '_'
 					jne fixed
-						mov eax, WHITE
+						cmp option_flag, ebx
+							je set_blue
+								mov eax, WHITE
+								jmp set_color
+							set_blue:
+								mov eax, BLUE 
+						set_color:
 						call SetTextColor
 						mov al, user_board[ebx]
 						call WriteChar
@@ -569,7 +607,8 @@ SUDOKU_PLAY PROC
 					mov eax, WHITE
 					call SetTextColor
 					inc ebx
-			loop L4
+			dec ecx 
+			jnz L4
 			mov al, ' '
 			call WriteChar
 			mov al, ' '
@@ -577,6 +616,10 @@ SUDOKU_PLAY PROC
 			mov eax, '|'
 			call WriteChar
 			call crlf
+			pop dx
+			inc dh
+			call GotoXY
+			push dx
 			mov al, ' '
 			call WriteChar
 			mov al, ' '
@@ -588,13 +631,95 @@ SUDOKU_PLAY PROC
 		mov ecx, esi
 	dec ecx 
 	jnz L2
+	pop dx
+	inc dh
+	call GotoXY
+	push dx
 	mov al, ' '
 	call WriteChar
 	mov al, ' '
 	call WriteChar
 	mov edx, OFFSET sud_border
 	call WriteString
-			
+
+	call ReadChar
+	cmp al, 'R'
+	jne back
+		call clrscr
+		jmp end_movement
+	back:
+	cmp al, 'X'
+	jne check_for_right 
+		call clrscr
+		jmp end_printing 
+	check_for_right:
+	cmp al, 'D'
+		jne check_for_left	
+			mov ecx, option_flag
+			inc ecx 
+			go_right:
+				cmp original_board[ecx], '_'
+				jne continue_loop
+				mov option_flag, ecx
+				jmp end_movement
+				continue_loop:
+				cmp ecx, 81 
+				je end_movement 
+				inc ecx 
+			jmp go_right
+	check_for_left:
+	cmp al, 'A'
+		jne check_for_up
+		mov ecx, option_flag
+			dec ecx 
+			go_left:
+				cmp original_board[ecx], '_'
+				jne continue_loop_second
+				mov option_flag, ecx
+				jmp end_movement
+				continue_loop_second:
+				cmp ecx, 0
+				je end_movement
+				dec ecx 
+			jmp go_left
+	check_for_up:
+	cmp al, 'W'
+		jne check_for_down
+		mov ecx, option_flag
+		sub ecx, 9
+		go_up:
+			cmp original_board[ecx], '_'
+			jne continue_loop_third
+			mov option_flag, ecx
+			jmp end_movement
+			continue_loop_third:
+			cmp ecx, 0
+			jle end_movement 
+			sub ecx, 9
+		jmp go_up
+	check_for_down:
+	cmp al, 'S'
+		jne assign_values
+		mov ecx, option_flag 
+		add ecx, 9
+		go_down:
+			cmp original_board[ecx], '_'
+			jne continue_loop_fourth
+			mov option_flag, ecx
+			jmp end_movement
+			continue_loop_fourth:
+			cmp ecx, 81
+			jge end_movement 
+			add ecx, 9			
+		jmp go_down
+	assign_values:
+			mov ebx, option_flag         ; -----------------------------> this is allowing to enter any value ! MAHAD CHECKING WILL COME INTO AFFECT HERE 
+			mov user_board[ebx], al
+	end_movement:
+	
+	jump_to_printed:
+	jmp printed
+	end_printing:
 	ret
 SUDOKU_PLAY ENDP
 
@@ -618,7 +743,7 @@ main PROC
 
 	check_second:
 	cmp option_flag, 1
-	jne check_third
+		jne check_third
 		mov option_flag, 0
 		call SUDOKU 
 		
@@ -626,18 +751,18 @@ main PROC
 
 		cmp option_flag, 0
 			jne check_second_sudoku
-			call clrscr
+	 		call clrscr
 			call SUDOKU_PLAY
 			jmp end_program
 		check_second_sudoku:
 
 		; ------> WHEN USER CHOSES BACK OF SUDOKU 
 
-    	cmp option_flag, 3
+		cmp option_flag, 3
 			mov option_flag, 0
 			jmp Last
 
-	 ; -----> WHEN USER CHOOSE EXIT (OPTION 3 OF MAIN MENU)
+	; -----> WHEN USER CHOOSE EXIT (OPTION 3 OF MAIN MENU)
     
 	check_third:
 		call ENDING_SCREEN
@@ -646,6 +771,7 @@ main PROC
 	jmp game_loop
 
 
+	
 	
 
 end_program:
