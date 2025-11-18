@@ -90,7 +90,8 @@ INCLUDE Irvine32.inc
 	YELLOW = 14
 	WHITE = 15
 	RED = 4
-	BLUE =1 
+	BLUE =1  
+	BLACK=0
 	ending_delay REAL8 100.0
 	
 original_board BYTE '5','3','_','_','7','_','_','_','_'
@@ -592,14 +593,20 @@ SUDOKU_PLAY PROC
 								mov eax, WHITE
 								jmp set_color
 							set_blue:
-								mov eax, BLUE 
+								mov eax, BLACK+(WHITE*16)
 						set_color:
 						call SetTextColor
 						mov al, user_board[ebx]
 						call WriteChar
 						jmp L4end
 					fixed:
-						mov eax, RED
+						cmp option_flag, ebx
+							je red_selected
+								mov eax, RED
+								jmp set_color_fixed
+							red_selected:
+								mov eax, RED+(WHITE*16)
+						set_color_fixed:
 						call SetTextColor
 						mov al, original_board[ebx]
 						call WriteChar
@@ -656,62 +663,38 @@ SUDOKU_PLAY PROC
 	cmp al, 'D'
 		jne check_for_left	
 			mov ecx, option_flag
-			inc ecx 
-			go_right:
-				cmp original_board[ecx], '_'
-				jne continue_loop
-				mov option_flag, ecx
-				jmp end_movement
-				continue_loop:
-				cmp ecx, 81 
-				je end_movement 
-				inc ecx 
-			jmp go_right
+			cmp ecx, 80
+			je end_movement 
+			inc ecx
+			mov option_flag, ecx
+			jmp end_movement 
 	check_for_left:
 	cmp al, 'A'
 		jne check_for_up
 		mov ecx, option_flag
-			dec ecx 
-			go_left:
-				cmp original_board[ecx], '_'
-				jne continue_loop_second
-				mov option_flag, ecx
-				jmp end_movement
-				continue_loop_second:
-				cmp ecx, 0
-				je end_movement
-				dec ecx 
-			jmp go_left
+		cmp ecx, 0
+		je end_movement 
+		dec ecx
+		mov option_flag, ecx
+		jmp end_movement 
 	check_for_up:
 	cmp al, 'W'
 		jne check_for_down
 		mov ecx, option_flag
+		cmp ecx, 9
+		jl end_movement 
 		sub ecx, 9
-		go_up:
-			cmp original_board[ecx], '_'
-			jne continue_loop_third
-			mov option_flag, ecx
-			jmp end_movement
-			continue_loop_third:
-			cmp ecx, 0
-			jle end_movement 
-			sub ecx, 9
-		jmp go_up
+		mov option_flag, ecx
+		jmp end_movement 
 	check_for_down:
 	cmp al, 'S'
 		jne assign_values
-		mov ecx, option_flag 
+		mov ecx, option_flag
+		cmp ecx, 71
+		jg end_movement 
 		add ecx, 9
-		go_down:
-			cmp original_board[ecx], '_'
-			jne continue_loop_fourth
-			mov option_flag, ecx
-			jmp end_movement
-			continue_loop_fourth:
-			cmp ecx, 81
-			jge end_movement 
-			add ecx, 9			
-		jmp go_down
+		mov option_flag, ecx
+		jmp end_movement 
 	assign_values:
 			mov ebx, option_flag         ; -----------------------------> this is allowing to enter any value ! MAHAD CHECKING WILL COME INTO AFFECT HERE 
 			mov user_board[ebx], al
