@@ -649,7 +649,7 @@ SUDOKU_PLAY PROC
 	mov edx, OFFSET sud_border
 	call WriteString
 
-	call ReadChar
+	call ReadKey        ; --------------------------> READS ANY KEY | FOUND IT FASTER THAN READCHAR
 	cmp al, 'R'
 	jne back
 		call clrscr
@@ -658,7 +658,8 @@ SUDOKU_PLAY PROC
 	cmp al, 'X'
 	jne check_for_right 
 		call clrscr
-		jmp end_printing 
+		pop dx
+		jmp end_printing
 	check_for_right:
 	cmp al, 'D'
 		jne check_for_left	
@@ -696,15 +697,26 @@ SUDOKU_PLAY PROC
 		mov option_flag, ecx
 		jmp end_movement 
 	assign_values:
-			mov ebx, option_flag         ; -----------------------------> this is allowing to enter any value ! MAHAD CHECKING WILL COME INTO AFFECT HERE 
-			mov user_board[ebx], al
+			mov ebx, option_flag        
+			cmp original_board[ebx], '_'  ; THIS CHECKS IF THE PLACE WE ARE ON IS FIXED CELL OR NOT, IF YES THEN JUMP TO not_change OR ELSE CHANGE 
+			jne not_change
+				cmp al, '0'
+				jl not_change
+				cmp al, '9'
+				jg not_change
+				mov user_board[ebx],al
+			not_change:
 	end_movement:
 	
 	jump_to_printed:
+	pop dx
 	jmp printed
 	end_printing:
 	ret
 SUDOKU_PLAY ENDP
+
+; ---------------------------------------------- MAIN PROC ---------------------------------------------------
+
 
 ; ---------------------------------------------- MAIN PROC ---------------------------------------------------
 
