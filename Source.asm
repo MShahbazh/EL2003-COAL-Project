@@ -735,6 +735,9 @@ call clrscr
 	call GetMaxXY
 	mov max_width, dl 
 	mov max_height, al 
+	mov dh, max_height
+	sub dh, 15
+	shr dh, 1
 	push dx 
 	printed:
 		pop dx
