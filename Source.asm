@@ -806,6 +806,90 @@ call clrscr
 	ret
 ENTRY_NAMES ENDP
 
+Checking proc
+mov ecx , 81  
+mov dword ptr  index  , ebx  
+mov eax , index   
+mov edx , 9 
+div edx 
+mul edx
+mov ebx  , eax 
+add ebx , 8 
+mov ecx  , ebx  
+mov esi , offset user_board
+add esi , ebx  
+mov edi , offset user_board
+add edi , index 
+l1  : 
+cmp ecx  , index  
+je l7
+cmp ecx , eax 
+je l5
+continue :
+mov edx  , [esi]
+cmp edx , [edi]
+je l6
+sub esi , 1 
+mov option_flag , 0 
+loop l1 
+
+mov ebx  , index  
+mov ecx , index 
+mov esi , offset user_board
+add esi , index
+mov edi , offset user_board
+add edi , index 
+check_2 : 
+cmp ebx , index  
+je l8
+continue_2 : 
+add ebx  , 9 
+cmp ebx , 80 
+ja l7
+mov edx  , [esi]
+cmp [edi] , edx  
+je l6
+add  esi , 1
+loop check_2
+mov edi , offset user_board
+add edi , index 
+mov ebx  , index  
+mov ecx , index 
+mov esi , offset user_board
+add esi , index
+check_3 : 
+cmp ebx , index  
+je l9
+continue_3 :
+sub ebx  , 9 
+cmp ebx , 0 
+jb l7
+mov edx  , [esi]
+cmp [edi] , edx  
+je l6
+sub  esi , 1
+loop check_3
+
+l5: 
+dec ecx 
+jmp continue
+
+l7  : 
+jmp return 
+
+l8  : 
+add  ebx   , 9
+jmp continue_2
+
+l9 : 
+sub ebx  , 9 
+jmp continue_3
+
+l6 : 
+mov option_flag , 1
+return : 
+ret
+Checking endp 
 ; ---------------------------------------------- MAIN PROC ---------------------------------------------------
 
 main PROC 
