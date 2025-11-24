@@ -94,6 +94,18 @@ INCLUDE Irvine32.inc
 	BLACK=0
 	ending_delay REAL8 100.0
 	
+	nameone BYTE "PLAYER 1 (MOVES FIRST)",0
+	nametwo BYTE "PLAYER 2",0 
+	namethree BYTE "Enter Option [ P : Play | B : Back | E : Edit ]: ",0
+	enter_title DWORD OFFSET nameone, OFFSET nametwo, OFFSET namethree
+	enter_title_length DWORD LENGTHOF nameone, LENGTHOF nametwo, LENGTHOF namethree
+	max_size_name = 50
+	player1 BYTE max_size_name+1 DUP(?)
+	player2 BYTE max_size_name+1 DUP(?)
+	
+	
+
+	
 original_board BYTE '5','3','_','_','7','_','_','_','_'
             BYTE '6','_','_','1','9','5','_','_','_'
             BYTE '_','9','8','_','_','_','_','6','_'
@@ -107,10 +119,8 @@ original_board BYTE '5','3','_','_','7','_','_','_','_'
 
 	user_board BYTE 81 DUP('_')
 	solution_board BYTE 81 DUP ('_')
-	
 
 	
-	d BYTE "DEBUGGED",0
 .code
 
 
@@ -495,7 +505,6 @@ ENDING_SCREEN ENDP
 
 ; ---------------------------------------------- SUDOKU PLAY (W for moving up, S for down, D for right, A for left, R for reload (clrscr, then print again, X for back (currently it ends program, will fix later) PROC ---------------------------------------------------
 ; Sudoku will display in easy option (for now)
-; Sudoku will display in easy option (for now)
 
 
 SUDOKU_PLAY PROC 
@@ -649,7 +658,7 @@ SUDOKU_PLAY PROC
 	mov edx, OFFSET sud_border
 	call WriteString
 
-	call ReadKey        ; --------------------------> READS ANY KEY | FOUND IT FASTER THAN READCHAR
+	call ReadKey
 	cmp al, 'R'
 	jne back
 		call clrscr
@@ -715,24 +724,105 @@ SUDOKU_PLAY PROC
 	ret
 SUDOKU_PLAY ENDP
 
-; ---------------------------------------------- MAIN PROC ---------------------------------------------------
+; ---------------------------------------------- ENTRY_NAMES PROC for entring names in TIC TAC TOE players ---------------------------------------------------
 
+
+ENTRY_NAMES PROC
+call clrscr
+	starting:
+	mov ecx, 3
+	mov ebx, 0
+	call GetMaxXY
+	mov max_width, dl 
+	mov max_height, al 
+	push dx 
+	printed:
+		pop dx
+		add dh, 2
+		push dx
+		sub edx, enter_title_length[ebx]
+		shr dl, 1
+		call GotoXY
+		mov edx, enter_title[ebx]
+		call WriteString
+		call crlf
+		pop dx
+			inc dh
+		push dx
+		sub edx, enter_title_length[0]
+		sub edx, 10
+		shr dl, 1
+		call GotoXY
+		mov edx, OFFSET t13
+		call WriteString
+		mov al, ' '
+		call WriteChar
+		cmp ecx, 3
+		jne player2_entry
+			mov edx, OFFSET player1
+			jmp take_reading
+		player2_entry:
+			cmp ecx, 2
+			jne player3_entry
+			mov edx, OFFSET player2
+		take_reading:
+		mov edi, ecx
+		mov ecx, max_size_name
+		inc ecx
+		call ReadString
+		jmp no_end
+		player3_entry:
+			mov edi, ecx
+			call ReadChar
+			cmp al, 'P'
+			jne check_E
+				mov option_flag, 1
+				jmp end_printed
+			check_E:
+			cmp al, 'E'
+			jne go_back
+				pop ax
+				call clrscr
+				jmp starting
+			go_back:
+				mov option_flag, 0
+				jmp end_printed
+		no_end:
+		mov ecx, edi
+		dec ecx
+		add ebx, 4
+		cmp ecx, 0
+		je end_printed
+	jmp printed
+	end_printed:
+	call crlf
+	
+
+
+	pop ax
+	ret
+ENTRY_NAMES ENDP
 
 ; ---------------------------------------------- MAIN PROC ---------------------------------------------------
 
 main PROC 
 
 	game_loop:
-
+	mov option_flag, 0
 	call PRINTING_MENU
 
 	; -----> WHEN USER CHOOSE TIC TAC TOE (OPTION 1 OF MAIN MENU)
 
+	tic_tac_toe_label:
 	cmp option_flag, 0
 	jne check_second
 		call TTT
-		mov option_flag, 0
-		jmp Last
+		cmp option_flag, 0
+		jne game_loop
+		call ENTRY_NAMES
+		cmp option_flag, 1
+		jne tic_tac_toe_label
+		jmp end_program ;---> FOR NOW 
 
 	; -----> WHEN USER CHOOSE SUDOKU (OPTION 2 OF MAIN MENU)
 
@@ -746,17 +836,17 @@ main PROC
 
 		cmp option_flag, 0
 			jne check_second_sudoku
-	 		call clrscr
+ 		call clrscr
 			call SUDOKU_PLAY
 			jmp end_program
-		check_second_sudoku:
+	 check_second_sudoku:
 
 		; ------> WHEN USER CHOSES BACK OF SUDOKU 
 
 		cmp option_flag, 3
 			mov option_flag, 0
 			jmp Last
-
+		
 	; -----> WHEN USER CHOOSE EXIT (OPTION 3 OF MAIN MENU)
     
 	check_third:
@@ -764,11 +854,7 @@ main PROC
 		jmp end_program
 	Last:
 	jmp game_loop
-
-
 	
-	
-
 end_program:
 	exit
 main ENDP
